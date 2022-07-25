@@ -1,6 +1,7 @@
-import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote, useNetwork } from "@thirdweb-dev/react";
+import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote, useNetwork, ChainId } from "@thirdweb-dev/react";
 import { useEffect, useMemo, useState } from "react";
 import {AddressZero} from "@ethersproject/constants";
+import Navbar from "./components/Navbar";
 
 const App = () => {
   const editionDrop = useEditionDrop("0x59BCB6F1D92154ED8A881F2E9b1afBC113f9b06E");
@@ -21,7 +22,6 @@ const App = () => {
   const connectWithMetamask = useMetamask();
   const disconnectMetamask = useDisconnect();
   const network = useNetwork();
-  console.log(network);
 
   console.log("👋 Public address: ", address);
 
@@ -216,13 +216,29 @@ const App = () => {
     }
   }
 
+  if(address && (network?.[0].data.chain.id !== ChainId.Rinkeby)) {
+    return (
+      <div className="unsupported-network">
+        <h2>Please connect to Rinkeby network</h2>
+        <p>This dapp only works on the Rinkeby network, please switch networks
+        in your connected wallet.</p>
+      </div>
+    )
+  }
+
   if(!address) {
     return (
-      <div className="landing">
-        <h1>Welcome to BBDAO</h1>
-        <button onClick={connectWithMetamask}>
+      <div className="flex flex-col m-auto content-center">
+        <div className="h-full">
+        <Navbar />
+        <h1 className="text-7xl font-semibold mb-8">Welcome to BBDAO</h1>
+        {/* <button 
+          className="bg-zinc-900 py-5 px-5 text-xl font-semibold rounded-2xl shadow-lg hover:bg-black-800" 
+          onClick={connectWithMetamask}
+        >
           Connect your wallet
-        </button>
+        </button> */}
+        </div>
       </div>
     )
   }
