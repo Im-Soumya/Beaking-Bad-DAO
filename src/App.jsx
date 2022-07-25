@@ -1,4 +1,4 @@
-import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote } from "@thirdweb-dev/react";
+import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote, useNetwork } from "@thirdweb-dev/react";
 import { useEffect, useMemo, useState } from "react";
 import {AddressZero} from "@ethersproject/constants";
 
@@ -20,6 +20,9 @@ const App = () => {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
   const disconnectMetamask = useDisconnect();
+  const network = useNetwork();
+  console.log(network);
+
   console.log("👋 Public address: ", address);
 
   useEffect(() => {
@@ -31,9 +34,9 @@ const App = () => {
 
         if(nftBalance.gt(0)) {
           setHasNFT(true);
-          console.log("🌟 This person has membership NFT.");
+          console.log("This person has membership NFT.");
         } else {
-          console.log("😭 This person doesnot have membership NFT");
+          console.log("This person doesnot have membership NFT");
         }
       } catch(e) {
         setHasNFT(false);
@@ -129,7 +132,7 @@ const App = () => {
     try {
       setIsClaiming(true);
       await editionDrop.claim("0", 1);
-      console.log(`✅ Successfully minted! Check it out on Opensea: https:testnets.opensea.io/assets/${editionDrop.getAddress()}/0`);
+      console.log(`Successfully minted! Check it out on Opensea: https:testnets.opensea.io/assets/${editionDrop.getAddress()}/0`);
       setHasNFT(true);
     } catch(e) {
       setIsClaiming(false);
@@ -141,17 +144,6 @@ const App = () => {
 
   const shortenAddress = (str) => {
     return str.substring(0, 6) + "..." + str.substring(str.length - 4);
-  }
-
-  if(!address) {
-    return (
-      <div className="landing">
-        <h1>Welcome to BBDAO</h1>
-        <button onClick={connectWithMetamask}>
-          Connect your wallet
-        </button>
-      </div>
-    )
   }
 
   const handleSubmit = async (e) => {
@@ -210,7 +202,7 @@ const App = () => {
           )
 
           setHasVoted(true);
-          console.log("✅ Successfully voted on the proposal.");
+          console.log("Successfully voted on the proposal.");
         } catch(e) {
           console.log("Failed to execute proposal", e);
         }
@@ -222,6 +214,17 @@ const App = () => {
     } finally {
       setIsVoting(false);
     }
+  }
+
+  if(!address) {
+    return (
+      <div className="landing">
+        <h1>Welcome to BBDAO</h1>
+        <button onClick={connectWithMetamask}>
+          Connect your wallet
+        </button>
+      </div>
+    )
   }
 
   if (hasNFT) {
@@ -267,7 +270,6 @@ const App = () => {
                           id={proposal.proposalId + "-" + type}
                           name={proposal.proposalId}
                           value={type}
-                          //default the "abstain" vote to checked
                           defaultChecked={type === 2}
                         />
                         <label htmlFor={proposal.proposalId + "-" + type}>
