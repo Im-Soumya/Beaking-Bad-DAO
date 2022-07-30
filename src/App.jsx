@@ -1,7 +1,10 @@
-import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote, useNetwork, ChainId } from "@thirdweb-dev/react";
+import { useAddress, useMetamask, useDisconnect, useEditionDrop, useToken, useVote, useNetwork } from "@thirdweb-dev/react";
+import {ChainId} from "@thirdweb-dev/sdk";
 import { useEffect, useMemo, useState } from "react";
 import {AddressZero} from "@ethersproject/constants";
-import Navbar from "./components/Navbar";
+import { SiHiveBlockchain } from "react-icons/si";
+import {BsArrowRightShort} from "react-icons/bs";
+import { GiAmethyst } from "react-icons/gi";
 
 const App = () => {
   const editionDrop = useEditionDrop("0x59BCB6F1D92154ED8A881F2E9b1afBC113f9b06E");
@@ -19,9 +22,9 @@ const App = () => {
   const [hasVoted, setHasVoted] = useState(false);
   
   const address = useAddress();
+  const network = useNetwork();
   const connectWithMetamask = useMetamask();
   const disconnectMetamask = useDisconnect();
-  const network = useNetwork();
 
   console.log("👋 Public address: ", address);
 
@@ -216,6 +219,21 @@ const App = () => {
     }
   }
 
+  const renderNav = () => {
+    return (
+    <div className="top-0 absolute w-full flex items-center justify-between py-7 px-32">
+      <div className="flex items-center">
+        <GiAmethyst className="text-2xl mr-3"/>
+        <h2 className="text-lg font-semibold">Breaking Bad DAO</h2>
+      </div>
+      <div className="flex items-center">
+        <SiHiveBlockchain className="text-xl mr-2"/>
+        <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
+      </div>
+    </div>
+    )
+  }
+
   if(address && (network?.[0].data.chain.id !== ChainId.Rinkeby)) {
     return (
       <div className="unsupported-network">
@@ -227,17 +245,18 @@ const App = () => {
   }
 
   if(!address) {
-    return (
-      <div className="flex flex-col m-auto content-center">
-        <div className="h-full">
-        <Navbar />
-        <h1 className="text-7xl font-semibold mb-8">Welcome to BBDAO</h1>
-        {/* <button 
-          className="bg-zinc-900 py-5 px-5 text-xl font-semibold rounded-2xl shadow-lg hover:bg-black-800" 
-          onClick={connectWithMetamask}
-        >
-          Connect your wallet
-        </button> */}
+    return (  
+      <div className="flex items-center justify-center h-screen">
+        <div>
+          {renderNav()}
+          <h1 className="text-7xl font-semibold text-center pl-101">Welcome to BBDAO</h1>
+          <button 
+            onClick={connectWithMetamask}
+            className="flex items-center ml-100 mt-9 py-3 pl-10 pr-8 text-lg text-center font-semibold rounded-full border-2 border-smoky-black hover:scale-105 duration-150"
+          >
+            Connect Wallet
+            <span><BsArrowRightShort className="ml-2 text-3xl" /></span>
+          </button>
         </div>
       </div>
     )
@@ -325,7 +344,10 @@ const App = () => {
       <button onClick={mintNFT} disabled={isClaiming}>
         {isClaiming ? "Minting..." : "Mint your NFT (FREE)"}
       </button>
-      <button onClick={disconnectMetamask}>
+      <button 
+        className="border-2 border-smoky-black py-2 px-4 rounded-full"  
+        onClick={disconnectMetamask}
+      >
         Disconnect Wallet
       </button>
     </div>

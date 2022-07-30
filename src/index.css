@@ -8,13 +8,23 @@ body {
   font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #7700ee;
-  color: #fff;
-  overflow-x: hidden;
+  /* background-image: url("../public/background.jpg");
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%; */
+  /* filter: blur(15px);
+  -webkit-filter: blur(15px); */
+  background-color: #57cc99;
+  color: #032202;
+  /* overflow-x: hidden; */
 }
 #root {
-  min-height: 100vh; 
   display: flex;
+  width: fit-content;
+}
+
+.background {
+
 }
 
 /* h1 {
