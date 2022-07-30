@@ -8,24 +8,26 @@ body {
   font-family: Inter, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* background-image: url("../public/background.jpg");
-  background-repeat: no-repeat;
-  height: 100%;
-  width: 100%; */
-  /* filter: blur(15px);
-  -webkit-filter: blur(15px); */
   background-color: #57cc99;
   color: #032202;
   /* overflow-x: hidden; */
 }
 #root {
-  display: flex;
+  /* display: flex; */
   width: fit-content;
 }
 
-.background {
-
-}
+/* .member-page {
+  flex-direction: column;
+  width: 960px;
+  max-width: calc(100% - 1rem);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  margin: auto;
+  align-content: center;
+  display: flex;
+  text-align: center;
+} */
 
 /* h1 {
   font-size: 5rem;

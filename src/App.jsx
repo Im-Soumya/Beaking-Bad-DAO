@@ -26,7 +26,7 @@ const App = () => {
   const connectWithMetamask = useMetamask();
   const disconnectMetamask = useDisconnect();
 
-  console.log("👋 Public address: ", address);
+  // console.log("👋 Public address: ", address);
 
   useEffect(() => {
     if(!address) return;
@@ -39,6 +39,7 @@ const App = () => {
           setHasNFT(true);
           console.log("This person has membership NFT.");
         } else {
+          setHasNFT(false);
           console.log("This person doesnot have membership NFT");
         }
       } catch(e) {
@@ -87,10 +88,8 @@ const App = () => {
 
     const getAllProposals = async () => {
       try {
-        const allProposals = await vote.getAll();
-        setProposals(allProposals);
-        console.log("All proposals: ", allProposals);
-        console.log(allProposals[0])
+        const proposals = await vote.getAll();
+        setProposals(proposals);
       } catch(e) {
         console.log("Failed to get all proposals", e);
       }
@@ -105,8 +104,8 @@ const App = () => {
 
     const checkIfUserVote = async () => {
       try {
-        const hasVoted = await vote.hasVoted(proposals[0].proposalId, address);
-        setHasNFT(hasVoted);
+        const hasVoted = await vote.hasVoted(proposals[0].proposalId);
+        setHasVoted(hasVoted);
         if(hasVoted) {
           console.log("The user already voted");
         } else {
@@ -118,7 +117,7 @@ const App = () => {
     }
     checkIfUserVote();
 
-  }, [hasNFT, address, proposals, vote])
+  }, [hasNFT, proposals, address, vote])
 
   const membersList = useMemo(() => {
     return memberAddresses.map((address) => {
@@ -249,10 +248,10 @@ const App = () => {
       <div className="flex items-center justify-center h-screen">
         <div>
           {renderNav()}
-          <h1 className="text-7xl font-semibold text-center pl-101">Welcome to BBDAO</h1>
+          <h1 className="text-7xl font-semibold text-center pl-345">Welcome to BBDAO</h1>
           <button 
             onClick={connectWithMetamask}
-            className="flex items-center ml-100 mt-9 py-3 pl-10 pr-8 text-lg text-center font-semibold rounded-full border-2 border-smoky-black hover:scale-105 duration-150"
+            className="flex items-center ml-570 mt-9 py-3 pl-10 pr-8 text-lg text-center font-semibold rounded-full border-2 border-smoky-black hover:scale-105 duration-150 hover:bg-smoky-black hover:text-ocean-green"
           >
             Connect Wallet
             <span><BsArrowRightShort className="ml-2 text-3xl" /></span>
@@ -264,17 +263,35 @@ const App = () => {
 
   if (hasNFT) {
     return (
-      <div className="member-page">
-        <h1>🍪DAO Member Page</h1>
-        <p>Congratulations on being a member</p>
-        <div>
-          <div>
-            <h2>Member List</h2>
-            <table className="card">
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="top-0 absolute w-full flex items-center justify-between py-1 pl-233">
+          <div className="flex items-center">
+            <GiAmethyst className="text-2xl mr-3"/>
+            <h2 className="text-lg font-semibold whitespace-nowrap">Breaking Bad DAO</h2>
+          </div>
+          <div className="flex items-center ml-345">
+            <SiHiveBlockchain className="text-xl ml-96 mr-2"/>
+            <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
+            <button 
+              className="text-md font-medium border-2 border-smoky-black py-2 px-3 rounded-full my-4 whitespace-nowrap hover:bg-smoky-black hover:text-ocean-green duration-100"  
+              onClick={disconnectMetamask}
+            >
+              Disconnect Wallet
+            </button>
+          </div>
+        </div>
+        <h1 className="text-6xl font-semibold ml-270 mt-7">
+          💎 DAO Member Page
+        </h1>
+        <p className="text-lg py-4 ml-300 mb-3">Congratulations! You're a member now</p>
+        <div className="flex flex-row ml-290">
+          <div className="flex flex-col items-center mr-20 px-8">
+            <h2 className="text-xl font-semibold ml-3 mb-2">Member List</h2>
+            <table className="p-4">
               <thead>
                 <tr>
                   <th>Address</th>
-                  <th>Token Amount</th>
+                  <th className="whitespace-nowrap pl-8">Token Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -282,30 +299,31 @@ const App = () => {
                   return (
                     <tr key={member.address}>
                       <td>{shortenAddress(member.address)}</td>
-                      <td>{member.tokenAmount}</td>
+                      <td className="pl-14">{member.tokenAmount}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           </div>
-          <div>
-            <h2>Active Proposals</h2>
+          <div className="flex flex-col items-center w-96">
+            <h2 className="text-xl font-semibold">Active Proposals</h2>
             <form
               onSubmit={(e) => handleSubmit(e)}
             >
               {proposals.map((proposal) => (
-                <div key={proposal.proposalId} className="card">
-                  <h5>{proposal.description}</h5>
-                  <div>
+                <div key={proposal.proposalId} className="flex flex-col">
+                  <h5 className="font-semibold py-2">{proposal.description}</h5>
+                  <div className="flex flex-row justify-start">
                     {proposal.votes.map(({ type, label }) => (
-                      <div key={type}>
+                      <div className="pr-16 mb-2" key={type}>
                         <input
                           type="radio"
                           id={proposal.proposalId + "-" + type}
                           name={proposal.proposalId}
                           value={type}
                           defaultChecked={type === 2}
+                          className="mr-2"
                         />
                         <label htmlFor={proposal.proposalId + "-" + type}>
                           {label}
@@ -315,40 +333,58 @@ const App = () => {
                   </div>
                 </div>
               ))}
-              <button disabled={isVoting || hasVoted} type="submit">
-                {isVoting
-                  ? "Voting..."
-                  : hasVoted
-                    ? "You Already Voted"
-                    : "Submit Votes"}
-              </button>
-              {!hasVoted && (
-                <small>
-                  This will trigger multiple transactions that you will need to
-                  sign.
-                </small>
-              )}
+              <div className="flex flex-col items-center">
+                <button 
+                  className="border-2 border-smoky-black py-2 px-4 rounded-full w-full font-semibold my-3 hover:bg-smoky-black hover:text-ocean-green duration-150"
+                  disabled={isVoting || hasVoted}
+                  type="submit"
+                >
+                  {isVoting
+                    ? "Voting..."
+                    : hasVoted
+                      ? "You Already Voted"
+                      : "Submit Votes"}
+                </button>
+                {!hasVoted && (
+                  <small>
+                    This will trigger multiple transactions that  you will need to sign.
+                  </small>
+                )}
+              </div>
             </form>
           </div>
         </div>
-          <button onClick={disconnectMetamask}>Disconnect Wallet</button>
       </div>
     );
   };
   
   return (
-    <div className="landing">
-      <h1>
+    <div className="flex flex-col items-center justify-center h-screen">
+      <div className="top-0 absolute w-full flex items-center justify-between py-1 pl-80">
+        <div className="flex items-center">
+          <GiAmethyst className="text-2xl mr-3"/>
+          <h2 className="text-lg font-semibold whitespace-nowrap">Breaking Bad DAO</h2>
+        </div>
+        <div className="flex items-center ml-345">
+          <SiHiveBlockchain className="text-xl ml-96 mr-2"/>
+          <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
+          <button 
+            className="text-md font-semibold border-2 border-smoky-black py-2 px-3 rounded-full my-4 whitespace-nowrap hover:bg-smoky-black hover:text-ocean-green duration-100"  
+            onClick={disconnectMetamask}
+          >
+          Disconnect Wallet
+          </button>
+        </div>
+      </div>
+      <h1 className="text-3xl font-semibold pl-460 my-4">
         Mint your NFT to be a member!
       </h1>
-      <button onClick={mintNFT} disabled={isClaiming}>
-        {isClaiming ? "Minting..." : "Mint your NFT (FREE)"}
-      </button>
       <button 
-        className="border-2 border-smoky-black py-2 px-4 rounded-full"  
-        onClick={disconnectMetamask}
+        className="ml-460 py-4 px-10 border-2 text-xl font-semibold border-smoky-black rounded-full my-3 hover:scale-105 hover:bg-smoky-black hover:text-ocean-green duration-150"
+        onClick={mintNFT} 
+        disabled={isClaiming}
       >
-        Disconnect Wallet
+        {isClaiming ? "Minting..." : "Mint your NFT (FREE)"}
       </button>
     </div>
   );
