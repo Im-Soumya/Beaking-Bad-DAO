@@ -13,7 +13,7 @@ import { AddressZero } from "@ethersproject/constants";
 import { SiHiveBlockchain } from "react-icons/si";
 import { BsArrowRightShort } from "react-icons/bs";
 import { GiAmethyst } from "react-icons/gi";
-import { FaEthereum } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
 import { BsGithub } from "react-icons/bs";
 import twitterLogo from "./assets/twitter-logo.svg";
 
@@ -235,12 +235,12 @@ const App = () => {
 
   if (address && network?.[0].data.chain.id !== ChainId.Rinkeby) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen ml-345">
-        <h1 className="text-4xl font-semibold">
+      <div className="flex flex-col items-center justify-center h-screen ml-230">
+        <h1 className="text-5xl font-semibold">
           Please change your network to Rinkeby
         </h1>
-        <h3 className="text-xl font-medium py-5">
-          This dApp only works on Rinkeby chain
+        <h3 className="text-2xl font-medium py-5">
+          This dApp only works on Rinkeby chain 🙂
         </h3>
       </div>
     );
@@ -347,13 +347,22 @@ const App = () => {
   if (hasNFT) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
-        <div className="top-0 absolute w-full flex items-center justify-between py-3 pl-253">
+        <div className="top-0 absolute w-full flex items-center py-3 pl-247">
           <div className="flex items-center">
             <GiAmethyst className="text-2xl text-ocean-green mr-3" />
             <h2 className="text-lg font-semibold whitespace-nowrap">BB DAO</h2>
           </div>
-          <div className="flex items-center ml-96">
-            <SiHiveBlockchain className="text-xl ml-96 mr-2" />
+          <div className="flex items-center ml-345">
+            <div className="ml-96 bg-slate-800 p-2 rounded-md hover:text-ocean-green duration-150">
+              <a
+                href="https://twitter.com/iamsoumyass"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <FaTwitter className="text-xl" />
+              </a>
+            </div>
+            <SiHiveBlockchain className="text-xl ml-4 mr-2" />
             <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
             <button
               className="text-md font-medium py-2 px-3 rounded-md my-4 whitespace-nowrap bg-slate-800 text-white hover:bg-slate-700 duration-100"
@@ -363,16 +372,19 @@ const App = () => {
             </button>
           </div>
         </div>
-        <h1 className="text-6xl font-semibold ml-220 mt-24">
-          💎 DAO Member Page
+        <h1 className="text-6xl font-semibold ml-253 mt-24">
+          💎 Welcome to{" "}
+          <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-indigo-600 to-sky-500">
+            Our Territory
+          </span>
         </h1>
-        <p className="text-lg py-4 ml-290 mb-3">
-          Congratulations! You're a member now
+        <p className="text-lg font-medium py-4 ml-290 mb-3">
+          Congratulations! Now let's cook some mETH?👀
         </p>
-        <div className="flex flex-row ml-253">
-          <div className="flex flex-col items-center mr-20 px-8">
+        <div className="flex flex-row ml-230">
+          <div className="flex flex-col items-center mr-16 px-8">
             <h2 className="text-xl font-semibold ml-3 mb-2">Member List</h2>
-            <div className="bg-gray-300 text-slate-900 px-3 py-3 rounded-md shadow-md">
+            <div className="bg-gray-300 text-slate-900 pl-7 pr-5 py-3 rounded-md shadow-md">
               <table>
                 <thead>
                   <tr>
