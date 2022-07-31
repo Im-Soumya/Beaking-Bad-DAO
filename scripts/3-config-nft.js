@@ -2,7 +2,7 @@ import { readFileSync } from "fs";
 import sdk from "./1-initialize-sdk.js";
 
 const editionDrop = sdk.getEditionDrop(
-  "0x59BCB6F1D92154ED8A881F2E9b1afBC113f9b06E"
+  "0x6dEE70a5a86Ce10AF077ae2e8c5820D7Be61C75f"
 );
 
 (async () => {
