@@ -34,14 +34,10 @@ const App = () => {
   const [isVoting, setIsVoting] = useState(false);
   const [hasVoted, setHasVoted] = useState(false);
 
-  const [isRinkeby, setIsRinkeby] = useState(true);
-
   const address = useAddress();
   const network = useNetwork();
   const connectWithMetamask = useMetamask();
   const disconnectMetamask = useDisconnect();
-
-  // console.log("👋 Public address: ", address);
 
   useEffect(() => {
     if (!address) return;
@@ -310,7 +306,7 @@ const App = () => {
         <div>
           {renderNav()}
           <h1 className="text-7xl font-bold ml-80">A DAO for the fans of</h1>
-          <h1 className="pb-3 text-7xl font-bold ml-460 text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-blue-400 to-violet-500 background-animate">
+          <h1 className="pb-3 text-7xl font-bold ml-460 text-transparent bg-clip-text  bg-gradient-to-r from-purple-500 via-indigo-600 to-sky-500 background-animate">
             Breaking Bad
           </h1>
           <h3 className="text-3xl mt-6 font-medium ml-460">
@@ -484,6 +480,9 @@ const App = () => {
         </span>{" "}
         to be a member!
       </h1>
+      <p className="ml-64 text-xl pt-4 tracking-wider">
+        Just kidding! Or am I? 👀
+      </p>
       <button
         className="ml-64 my-9 py-5 px-10 text-xl font-semibold rounded-md bg-ocean-green text-slate-900 duration-150"
         onClick={mintNFT}
