@@ -13,6 +13,8 @@ import { AddressZero } from "@ethersproject/constants";
 import { SiHiveBlockchain } from "react-icons/si";
 import { BsArrowRightShort } from "react-icons/bs";
 import { GiAmethyst } from "react-icons/gi";
+import { FaEthereum } from "react-icons/fa";
+import { BsGithub } from "react-icons/bs";
 import twitterLogo from "./assets/twitter-logo.svg";
 
 const App = () => {
@@ -248,11 +250,19 @@ const App = () => {
     return (
       <div className="top-0 absolute w-full flex items-center justify-between py-7 px-28">
         <div className="flex items-center">
-          <GiAmethyst className="text-2xl mr-3" />
-          <h2 className="text-lg font-semibold">Breaking Bad DAO</h2>
+          <GiAmethyst className="text-2xl text-ocean-green mr-3" />
+          <h2 className="text-lg font-semibold">BB DAO</h2>
         </div>
         <div className="flex items-center">
-          <SiHiveBlockchain className="text-xl mr-2" />
+          <a
+            className="bg-slate-800 p-2 rounded-md hover:text-ocean-green duration-150"
+            href="https://github.com/Im-Soumya/my-dao"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <BsGithub className="text-2xl" />
+          </a>
+          <SiHiveBlockchain className="text-xl mr-2 ml-7" />
           <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
         </div>
       </div>
@@ -299,46 +309,61 @@ const App = () => {
       <div className="flex items-center justify-center h-screen">
         <div>
           {renderNav()}
-          <h1 className="text-7xl font-semibold text-center pl-345">
-            Welcome to BBDAO
+          <h1 className="text-7xl font-bold ml-80">A DAO for the fans of</h1>
+          <h1 className="pb-3 text-7xl font-bold ml-460 text-transparent bg-clip-text  bg-gradient-to-r from-indigo-500 via-blue-400 to-violet-500 background-animate">
+            Breaking Bad
           </h1>
-          <button
-            onClick={connectWithMetamask}
-            className="flex items-center ml-570 mt-9 py-3 pl-10 pr-8 text-lg text-center font-semibold rounded-full border-2 border-smoky-black hover:scale-105 duration-150 hover:bg-smoky-black hover:text-ocean-green"
-          >
-            Connect Wallet
-            <span>
-              <BsArrowRightShort className="ml-2 text-3xl" />
-            </span>
-          </button>
+          <h3 className="text-3xl mt-6 font-medium ml-460">
+            We're in the empire business! 👑
+          </h3>
+          <div className="flex items-center w-full ml-470 mt-11">
+            <button
+              onClick={connectWithMetamask}
+              className="flex items-center py-4 pl-7 pr-5 text-lg text-gray-900 text-center font-semibold rounded-md bg-ocean-green hover:bg-opacity-90 duration-150"
+            >
+              Connect Wallet
+              <span>
+                <BsArrowRightShort className="ml-1 text-3xl" />
+              </span>
+            </button>
+            <a
+              className="flex items-center py-4 px-14 ml-7 bg-slate-800 text-white font-semibold rounded-md hover:bg-slate-700 duration-150 text-lg"
+              href="https://github.com/Im-Soumya/my-dao"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span>
+                <BsGithub className="mr-3" />
+              </span>
+              Github
+            </a>
+          </div>
           {footer()}
         </div>
       </div>
     );
   }
 
-  if (!hasNFT) {
+  if (hasNFT) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
-        <div className="top-0 absolute w-full flex items-center justify-between py-1 pl-243">
+        <div className="top-0 absolute w-full flex items-center justify-between py-3 pl-253">
           <div className="flex items-center">
-            <GiAmethyst className="text-2xl mr-3" />
-            <h2 className="text-lg font-semibold whitespace-nowrap">
-              Breaking Bad DAO
-            </h2>
+            <GiAmethyst className="text-2xl text-ocean-green mr-3" />
+            <h2 className="text-lg font-semibold whitespace-nowrap">BB DAO</h2>
           </div>
-          <div className="flex items-center ml-345">
+          <div className="flex items-center ml-96">
             <SiHiveBlockchain className="text-xl ml-96 mr-2" />
             <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
             <button
-              className="text-md font-medium border-2 border-smoky-black py-2 px-3 rounded-full my-4 whitespace-nowrap hover:bg-smoky-black hover:text-ocean-green duration-100"
+              className="text-md font-medium py-2 px-3 rounded-md my-4 whitespace-nowrap bg-slate-800 text-white hover:bg-slate-700 duration-100"
               onClick={disconnectMetamask}
             >
               Disconnect Wallet
             </button>
           </div>
         </div>
-        <h1 className="text-6xl font-semibold ml-220 mt-14">
+        <h1 className="text-6xl font-semibold ml-220 mt-24">
           💎 DAO Member Page
         </h1>
         <p className="text-lg py-4 ml-290 mb-3">
@@ -347,7 +372,7 @@ const App = () => {
         <div className="flex flex-row ml-253">
           <div className="flex flex-col items-center mr-20 px-8">
             <h2 className="text-xl font-semibold ml-3 mb-2">Member List</h2>
-            <div className="bg-white px-3 py-3 rounded-md shadow-md">
+            <div className="bg-gray-300 text-slate-900 px-3 py-3 rounded-md shadow-md">
               <table>
                 <thead>
                   <tr>
@@ -374,7 +399,7 @@ const App = () => {
               {proposals.map((proposal) => (
                 <div
                   key={proposal.proposalId}
-                  className="flex flex-col shadow-md px-6 py-3 bg-white rounded-md mb-3"
+                  className="flex flex-col shadow-md px-6 py-3 bg-gray-300 text-slate-900 rounded-md mb-3"
                 >
                   <h5 className="font-semibold pb-3">{proposal.description}</h5>
                   <div className="flex flex-row justify-start">
@@ -398,7 +423,7 @@ const App = () => {
               ))}
               <div className="flex flex-col items-center">
                 <button
-                  className="border-2 border-smoky-black py-2 px-4 rounded-full w-full font-semibold my-3 hover:bg-smoky-black hover:text-ocean-green duration-150"
+                  className="py-3 rounded-md w-full text-lg font-semibold mt-1 mb-3 bg-ocean-green text-slate-900 hover:bg-opacity-90 duration-150"
                   disabled={isVoting || hasVoted}
                   type="submit"
                 >
@@ -424,34 +449,66 @@ const App = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <div className="top-0 absolute w-full flex items-center justify-between py-1 pl-80">
+      <div className="top-0 absolute w-full flex items-center justify-between py-3 pl-56">
         <div className="flex items-center">
-          <GiAmethyst className="text-2xl mr-3" />
-          <h2 className="text-lg font-semibold whitespace-nowrap">
-            Breaking Bad DAO
-          </h2>
+          <GiAmethyst className="text-2xl text-ocean-green mr-3" />
+          <h2 className="text-lg font-semibold whitespace-nowrap">BB DAO</h2>
         </div>
         <div className="flex items-center ml-345">
           <SiHiveBlockchain className="text-xl ml-96 mr-2" />
           <h2 className="mr-4 text-md font-medium">Rinkeby</h2>
           <button
-            className="text-md font-semibold border-2 border-smoky-black py-2 px-3 rounded-full my-4 whitespace-nowrap hover:bg-smoky-black hover:text-ocean-green duration-100"
+            className="text-md font-medium py-2 px-3 rounded-md my-4 whitespace-nowrap bg-slate-800 text-white hover:bg-slate-700 duration-100"
             onClick={disconnectMetamask}
           >
             Disconnect Wallet
           </button>
         </div>
       </div>
-      <h1 className="text-3xl font-semibold pl-460 my-4">
-        Mint your NFT to be a member!
+      <h1 className="text-6xl font-semibold ml-64 my-4">
+        Say{" "}
+        <span className="font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-500 via-sky-400 to-rose-500 background-animate">
+          his name
+        </span>{" "}
+        to be a member!
       </h1>
       <button
-        className="ml-460 py-4 px-10 border-2 text-xl font-semibold border-smoky-black rounded-full my-3 hover:scale-105 hover:bg-smoky-black hover:text-ocean-green duration-150"
+        className="ml-64 my-9 py-5 px-10 text-xl font-semibold rounded-md bg-ocean-green text-slate-900 duration-150"
         onClick={mintNFT}
         disabled={isClaiming}
       >
         {isClaiming ? "Minting..." : "Mint your NFT (FREE)"}
       </button>
+      <div className="bottom-0 absolute flex w-full justify-center ml-60">
+        <div className="pr-4 flex items-center font-medium hover:-translate-y-1 duration-100 hover:underline">
+          <img
+            alt="twitter-logo"
+            className="w-9 h-9 object-contain"
+            src={twitterLogo}
+          />
+          <a
+            href="https://twitter.com/_buildspace"
+            target="_blank"
+            rel="noreferrer"
+          >
+            built on @_buildspace
+          </a>
+        </div>
+        <div className="flex items-center font-medium hover:-translate-y-1 duration-100 hover:underline">
+          <img
+            alt="twitter-logo"
+            className="w-9 h-9 object-contain"
+            src={twitterLogo}
+          />
+          <a
+            href="https://twitter.com/iamsoumyass"
+            target="_blank"
+            rel="noreferrer"
+          >
+            built by @iamsoumyass
+          </a>
+        </div>
+      </div>
     </div>
   );
 };
